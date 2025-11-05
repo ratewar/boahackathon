@@ -74,38 +74,38 @@ export default function ChatPage() {
   ];
 
   return (
-    <div className="flex h-[calc(100vh-8rem)] flex-col">
+    <div className="flex h-[calc(100vh-6rem)] sm:h-[calc(100vh-8rem)] flex-col">
       <Card className="flex flex-1 flex-col overflow-hidden">
-        <div className="border-b border-border bg-background p-4">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+        <div className="border-b border-border bg-background p-3 sm:p-4">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
             API Documentation Chat
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             Ask questions about API endpoints, authentication, and implementation
           </p>
         </div>
 
-        <ScrollArea className="flex-1 p-6" ref={scrollRef}>
-          <div className="mx-auto max-w-5xl space-y-6">
+        <ScrollArea className="flex-1 p-3 sm:p-6" ref={scrollRef}>
+          <div className="mx-auto max-w-5xl space-y-4 sm:space-y-6">
             {/* ---- Welcome block ---- */}
             {messages.length === 0 && (
-              <div className="flex gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg">
-                  <Sparkles className="h-5 w-5" />
+              <div className="flex gap-3 sm:gap-4">
+                <div className="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg">
+                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
-                <div className="flex-1 space-y-3 rounded-2xl bg-muted/50 px-5 py-4">
-                  <p className="text-base font-medium leading-relaxed">
+                <div className="flex-1 space-y-2 sm:space-y-3 rounded-2xl bg-muted/50 px-3 py-3 sm:px-5 sm:py-4">
+                  <p className="text-sm sm:text-base font-medium leading-relaxed">
                     Hello! I'm your API Documentation Assistant.
                   </p>
-                  <div className="space-y-2 text-sm text-muted-foreground">
+                  <div className="space-y-2 text-xs sm:text-sm text-muted-foreground">
                     <div className="flex items-start gap-2">
-                      <Code className="mt-0.5 h-4 w-4 shrink-0" />
+                      <Code className="mt-0.5 h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
                       <span>
                         Ask me about API endpoints, authentication, parameters, and usage
                       </span>
                     </div>
                     <div className="flex items-start gap-2">
-                      <FileText className="mt-0.5 h-4 w-4 shrink-0" />
+                      <FileText className="mt-0.5 h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
                       <span>
                         Get code examples for your api integrations
                       </span>
@@ -119,20 +119,20 @@ export default function ChatPage() {
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex gap-4 ${
+                className={`flex gap-3 sm:gap-4 ${
                   msg.role === "user" ? "justify-end" : "justify-start"
                 }`}
               >
                 {msg.role === "assistant" && (
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg">
-                    <Bot className="h-5 w-5" />
+                  <div className="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg">
+                    <Bot className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
                 )}
 
                 <div
-                  className={`flex-1 space-y-3 rounded-2xl px-5 py-4 ${
+                  className={`flex-1 space-y-2 sm:space-y-3 rounded-2xl px-3 py-3 sm:px-5 sm:py-4 ${
                     msg.role === "user"
-                      ? "bg-primary text-primary-foreground shadow-md max-w-[85%]"
+                      ? "bg-primary text-primary-foreground shadow-md max-w-[90%] sm:max-w-[85%]"
                       : "bg-muted/50"
                   }`}
                 >
@@ -148,7 +148,7 @@ export default function ChatPage() {
                     // For user messages, just show the text directly
                     if (msg.role === 'user' && part.type === 'text') {
                       return (
-                        <p key={idx} className="text-base leading-relaxed text-primary-foreground">
+                        <p key={idx} className="text-sm sm:text-base leading-relaxed text-primary-foreground break-words">
                           {part.text}
                         </p>
                       );
@@ -156,19 +156,19 @@ export default function ChatPage() {
                     
                     if (part.type === 'text') {
                       return (
-                        <div key={idx} className="text-base leading-relaxed">
+                        <div key={idx} className="text-sm sm:text-base leading-relaxed break-words">
                           <ReactMarkdown
                             components={{
                               code: ({ node, inline, className, children, ...props }: any) => {
                                 const match = /language-(\w+)/.exec(className || '');
                                 return !inline && match ? (
-                                  <pre className="bg-slate-900 dark:bg-slate-800 text-slate-50 rounded-lg p-4 overflow-x-auto my-4 border border-slate-700">
+                                  <pre className="bg-slate-900 dark:bg-slate-800 text-slate-50 rounded-lg p-2 sm:p-4 overflow-x-auto my-2 sm:my-4 border border-slate-700 text-xs sm:text-sm">
                                     <code className={className} {...props}>
                                       {children}
                                     </code>
                                   </pre>
                                 ) : (
-                                  <code className="bg-slate-100 dark:bg-slate-800 text-rose-600 dark:text-rose-400 px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+                                  <code className="bg-slate-100 dark:bg-slate-800 text-rose-600 dark:text-rose-400 px-1 sm:px-1.5 py-0.5 rounded text-xs sm:text-sm font-mono" {...props}>
                                     {children}
                                   </code>
                                 );
@@ -227,8 +227,8 @@ export default function ChatPage() {
                 </div>
 
                 {msg.role === "user" && (
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-md">
-                    <User className="h-5 w-5" />
+                  <div className="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-md">
+                    <User className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
                 )}
               </div>
@@ -239,13 +239,13 @@ export default function ChatPage() {
 
             {/* ---- Loading indicator ---- */}
             {isLoading && (
-              <div className="flex gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg">
-                  <Bot className="h-5 w-5" />
+              <div className="flex gap-3 sm:gap-4">
+                <div className="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg">
+                  <Bot className="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
-                <div className="flex items-center gap-3 rounded-2xl bg-muted/50 px-5 py-4">
+                <div className="flex items-center gap-2 sm:gap-3 rounded-2xl bg-muted/50 px-3 py-3 sm:px-5 sm:py-4">
                   <Loader2 className="h-4 w-4 animate-spin text-primary" />
-                  <span className="text-sm text-muted-foreground">
+                  <span className="text-xs sm:text-sm text-muted-foreground">
                     Thinking...
                   </span>
                 </div>
@@ -258,7 +258,7 @@ export default function ChatPage() {
         </ScrollArea>
 
         {/* ---- Input at bottom ---- */}
-        <div className="border-t border-border bg-background p-4 mt-auto">
+        <div className="border-t border-border bg-background p-3 sm:p-4 mt-auto">
           <form 
             onSubmit={(e) => {
               e.preventDefault();
@@ -267,26 +267,26 @@ export default function ChatPage() {
                 setInput('');
               }
             }} 
-            className="mx-auto max-w-5xl space-y-3"
+            className="mx-auto max-w-5xl space-y-2 sm:space-y-3"
           >
             <div className="flex gap-2">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.currentTarget.value)}
-                placeholder="Ask about API endpoints, authentication, parameters..."
+                placeholder="Ask about API endpoints..."
                 disabled={isLoading}
-                className="flex-1 h-12 text-base"
+                className="flex-1 h-10 sm:h-12 text-sm sm:text-base"
               />
               <Button
                 type="submit"
                 disabled={isLoading || !input.trim()}
                 size="lg"
-                className="px-6"
+                className="px-3 sm:px-6 h-10 sm:h-12"
               >
                 {isLoading ? (
-                  <Loader2 className="h-5 w-5 animate-spin" />
+                  <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
                 ) : (
-                  <Send className="h-5 w-5" />
+                  <Send className="h-4 w-4 sm:h-5 sm:w-5" />
                 )}
               </Button>
             </div>
@@ -296,14 +296,14 @@ export default function ChatPage() {
               <p className="text-xs font-medium text-muted-foreground">
                 Suggested questions:
               </p>
-              <div className="grid gap-2 sm:grid-cols-2">
+              <div className="grid gap-2 grid-cols-1 sm:grid-cols-2">
                 {suggestedPrompts.map((prompt, idx) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => setInput(prompt)}
                     disabled={isLoading}
-                    className="rounded-md border border-border bg-background px-3 py-2 text-left text-xs transition-colors hover:bg-accent hover:border-primary/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="rounded-md border border-border bg-background px-2 sm:px-3 py-1.5 sm:py-2 text-left text-xs transition-colors hover:bg-accent hover:border-primary/50 disabled:opacity-50 disabled:cursor-not-allowed truncate"
                   >
                     {prompt}
                   </button>
@@ -311,7 +311,7 @@ export default function ChatPage() {
               </div>
             </div>
             
-            <p className="text-xs text-center text-muted-foreground">
+            <p className="text-xs text-center text-muted-foreground hidden sm:block">
               Responses are based on uploaded API documentation. Always verify with official docs.
             </p>
           </form>

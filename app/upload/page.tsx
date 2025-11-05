@@ -199,30 +199,30 @@ export default function UploadPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4 sm:space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Upload Documents</h1>
-        <p className="text-muted-foreground">Upload files or add links to build your knowledge base</p>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">Upload Documents</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">Upload files or add links to build your knowledge base</p>
       </div>
 
       <Tabs defaultValue="files" className="w-full">
         <TabsList className="grid w-full max-w-2xl grid-cols-3">
-          <TabsTrigger value="files">Files</TabsTrigger>
-          <TabsTrigger value="links">Links</TabsTrigger>
-          <TabsTrigger value="documents">All Documents</TabsTrigger>
+          <TabsTrigger value="files" className="text-xs sm:text-sm">Files</TabsTrigger>
+          <TabsTrigger value="links" className="text-xs sm:text-sm">Links</TabsTrigger>
+          <TabsTrigger value="documents" className="text-xs sm:text-sm">All Documents</TabsTrigger>
         </TabsList>
 
         <TabsContent value="files" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Upload Files</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-lg sm:text-xl">Upload Files</CardTitle>
+              <CardDescription className="text-xs sm:text-sm">
                 Support for PDF, images, and documents. Files will be processed and embedded automatically.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div
-                className={`relative flex min-h-[300px] flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors ${
+                className={`relative flex min-h-[200px] sm:min-h-[300px] flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors ${
                   dragActive ? "border-primary bg-accent" : "border-border bg-background hover:border-primary/50"
                 }`}
                 onDragEnter={handleDrag}
@@ -230,9 +230,9 @@ export default function UploadPage() {
                 onDragOver={handleDrag}
                 onDrop={handleDrop}
               >
-                <Upload className="mb-4 h-12 w-12 text-muted-foreground" />
-                <p className="mb-2 text-sm font-medium text-foreground">Drag and drop files here, or click to browse</p>
-                <p className="text-xs text-muted-foreground">Supports PDF, PNG, JPG, DOCX, TXT and more</p>
+                <Upload className="mb-3 sm:mb-4 h-8 w-8 sm:h-12 sm:w-12 text-muted-foreground" />
+                <p className="mb-2 text-xs sm:text-sm font-medium text-foreground px-4 text-center">Drag and drop files here, or click to browse</p>
+                <p className="text-xs text-muted-foreground px-4 text-center">Supports PDF, PNG, JPG, DOCX, TXT and more</p>
                 <Input
                   type="file"
                   multiple
@@ -244,20 +244,20 @@ export default function UploadPage() {
 
               {files.length > 0 && (
                 <div className="space-y-2">
-                  <Label>Selected Files ({files.length})</Label>
-                  <div className="space-y-2 rounded-lg border border-border p-4">
+                  <Label className="text-sm">Selected Files ({files.length})</Label>
+                  <div className="space-y-2 rounded-lg border border-border p-2 sm:p-4">
                     {files.map((file, index) => (
-                      <div key={index} className="flex items-center justify-between rounded-md bg-accent p-2">
-                        <div className="flex items-center gap-2">
+                      <div key={index} className="flex items-center justify-between rounded-md bg-accent p-2 gap-2">
+                        <div className="flex items-center gap-2 min-w-0 flex-1">
                           {file.type.startsWith("image/") ? (
-                            <ImageIcon className="h-5 w-5" />
+                            <ImageIcon className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
                           ) : (
-                            <FileText className="h-5 w-5" />
+                            <FileText className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
                           )}
-                          <span className="text-sm font-medium">{file.name}</span>
-                          <span className="text-xs text-muted-foreground">({(file.size / 1024).toFixed(2)} KB)</span>
+                          <span className="text-xs sm:text-sm font-medium truncate">{file.name}</span>
+                          <span className="text-xs text-muted-foreground hidden sm:inline">({(file.size / 1024).toFixed(2)} KB)</span>
                         </div>
-                        <Button variant="ghost" size="sm" onClick={() => setFiles(files.filter((_, i) => i !== index))}>
+                        <Button variant="ghost" size="sm" className="text-xs shrink-0" onClick={() => setFiles(files.filter((_, i) => i !== index))}>
                           Remove
                         </Button>
                       </div>
@@ -285,8 +285,8 @@ export default function UploadPage() {
         <TabsContent value="links" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Add Links</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-lg sm:text-xl">Add Links</CardTitle>
+              <CardDescription className="text-xs sm:text-sm">
                 Add URLs to web pages, articles, or documentation. Content will be extracted and embedded.
               </CardDescription>
             </CardHeader>
@@ -319,8 +319,8 @@ export default function UploadPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Bulk Import</CardTitle>
-              <CardDescription>Add multiple URLs at once, one per line</CardDescription>
+              <CardTitle className="text-lg sm:text-xl">Bulk Import</CardTitle>
+              <CardDescription className="text-xs sm:text-sm">Add multiple URLs at once, one per line</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Textarea
@@ -349,8 +349,8 @@ export default function UploadPage() {
         <TabsContent value="documents" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>All Documents</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-lg sm:text-xl">All Documents</CardTitle>
+              <CardDescription className="text-xs sm:text-sm">
                 {documents.length} document{documents.length !== 1 ? "s" : ""} in your knowledge base
               </CardDescription>
             </CardHeader>
@@ -362,20 +362,20 @@ export default function UploadPage() {
                     placeholder="Search documents..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-9"
+                    className="pl-9 text-sm"
                   />
                 </div>
               </div>
 
-              <div className="rounded-md border border-border">
+              <div className="rounded-md border border-border overflow-x-auto">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Type</TableHead>
-                      <TableHead>Size</TableHead>
-                      <TableHead>Uploaded</TableHead>
-                      <TableHead>Status</TableHead>
+                      <TableHead className="text-xs sm:text-sm">Name</TableHead>
+                      <TableHead className="text-xs sm:text-sm hidden sm:table-cell">Type</TableHead>
+                      <TableHead className="text-xs sm:text-sm hidden md:table-cell">Size</TableHead>
+                      <TableHead className="text-xs sm:text-sm hidden lg:table-cell">Uploaded</TableHead>
+                      <TableHead className="text-xs sm:text-sm">Status</TableHead>
                       <TableHead className="w-[50px]"></TableHead>
                     </TableRow>
                   </TableHeader>
@@ -390,14 +390,14 @@ export default function UploadPage() {
                       filteredDocuments.map((doc) => (
                         <TableRow key={doc.id}>
                           <TableCell>
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                               {getDocumentIcon(doc.type)}
-                              <span className="font-medium">{doc.title}</span>
+                              <span className="font-medium text-xs sm:text-sm truncate max-w-[150px] sm:max-w-none">{doc.title}</span>
                             </div>
                           </TableCell>
-                          <TableCell className="capitalize">{doc.type}</TableCell>
-                          <TableCell>{formatFileSize(doc.file_size)}</TableCell>
-                          <TableCell>{formatDate(doc.created_at)}</TableCell>
+                          <TableCell className="capitalize text-xs sm:text-sm hidden sm:table-cell">{doc.type}</TableCell>
+                          <TableCell className="text-xs sm:text-sm hidden md:table-cell">{formatFileSize(doc.file_size)}</TableCell>
+                          <TableCell className="text-xs sm:text-sm hidden lg:table-cell">{formatDate(doc.created_at)}</TableCell>
                           <TableCell>{getStatusBadge(doc.status)}</TableCell>
                           <TableCell>
                             <DropdownMenu>
@@ -443,33 +443,33 @@ export default function UploadPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Processing Pipeline</CardTitle>
-          <CardDescription>How your documents are processed</CardDescription>
+          <CardTitle className="text-lg sm:text-xl">Processing Pipeline</CardTitle>
+          <CardDescription className="text-xs sm:text-sm">How your documents are processed</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-3">
             <div className="space-y-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
+              <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm sm:text-base">
                 1
               </div>
-              <h3 className="font-semibold">Upload</h3>
-              <p className="text-sm text-muted-foreground">Files are securely uploaded to cloud storage</p>
+              <h3 className="font-semibold text-sm sm:text-base">Upload</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">Files are securely uploaded to cloud storage</p>
             </div>
             <div className="space-y-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
+              <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm sm:text-base">
                 2
               </div>
-              <h3 className="font-semibold">Extract & Embed</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className="font-semibold text-sm sm:text-base">Extract & Embed</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 Content is extracted and converted to AI embeddings using OpenAI
               </p>
             </div>
             <div className="space-y-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
+              <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm sm:text-base">
                 3
               </div>
-              <h3 className="font-semibold">Ready to Query</h3>
-              <p className="text-sm text-muted-foreground">Documents are searchable via the chat interface with RAG</p>
+              <h3 className="font-semibold text-sm sm:text-base">Ready to Query</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">Documents are searchable via the chat interface with RAG</p>
             </div>
           </div>
         </CardContent>

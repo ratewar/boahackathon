@@ -32,8 +32,8 @@ export default function RootLayout({
           // App pages - with sidebar
           <div className="flex h-screen overflow-hidden">
             <AppSidebar />
-            <main className="flex-1 overflow-y-auto">
-              <div className="container mx-auto p-8">{children}</div>
+            <main className="flex-1 overflow-y-auto lg:ml-0">
+              <div className="container mx-auto p-4 sm:p-6 lg:p-8 pt-16 lg:pt-8">{children}</div>
             </main>
             <Toaster />
             <Analytics />
